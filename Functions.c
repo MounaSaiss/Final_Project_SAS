@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include "header.h"
+int nbrClient=0;
 
 
 /*_________________Fonction de Menu______________*/
@@ -38,6 +39,7 @@ do {
                                 creeProfil();
                                 break;
                         case 2:printf("==MODIFIEE PROFIL==\n");
+                                FonctModifiProfi();
                                 break;
                         case 3:printf("==CONSULT PROFIL==\n");
                                 break;
@@ -137,7 +139,41 @@ void creeProfil(){
     strcpy(CLIENTINFO.prenom,prenom);
     strcpy(CLIENTINFO.email,email);
     CLIENTINFO.sold=sold;
+    CLIENTINFO.idClient=1;
 printf("\033[35m"
                 "==Profil Cree Avec Succes!\n"
                 "\033[0m");
+nbrClient++;
+}
+
+/*_________modification de profil___________*/
+void FonctModifiProfi(){
+int Idsaisie;
+int choix ;
+char nomClient[30], prenom[30],email[60];
+int trouve=0;
+
+    if(nbrClient==0){
+        printf("Aucun Profil a Afficher\n");
+        return;
+    }
+printf("Veuillez saisir Votre ID:");
+scanf("%d",&Idsaisie);
+if (Idsaisie==1){
+printf("Nouvelle Nom :");
+scanf(" %[^\n]",nomClient);
+strcpy(CLIENTINFO.nomClient,nomClient);
+printf("Nouvelle Prenom:");
+scanf(" %[^\n]",prenom);
+strcpy(CLIENTINFO.prenom,prenom);
+sprintf(email, "%s.%s@email.com", prenom, nomClient);
+    printf("Email de client est:%s\n",email);
+    printf("\033[32m"
+                "___La modification fait Avec succes___\n"
+                "\033[0m");   
+trouve=1;
+}
+if(!trouve){
+    printf("Aucun Profil existe a Modifier avec Id %d\n",Idsaisie);
+}
 }

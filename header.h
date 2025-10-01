@@ -6,6 +6,7 @@
 
 
 
+
 typedef struct{
     int idClient ;
     char nomClient[30];
@@ -28,9 +29,11 @@ typedef struct{
 extern client CLIENTINFO;
 extern produit PRODUIT[MAX_PRODUIT];
 extern int nbrProduits;
+extern int nbrClient;
 
 /*Prototype des fonctions*/
 void afficheMenu();
 void creeProfil();
+void FonctModifiProfi();
 
 #endif
