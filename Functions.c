@@ -2,13 +2,14 @@
 #include <string.h>
 #include "header.h"
 int nbrClient = 0;
-int nbrProduits = 10;
+int nbrProduits = 7;
 
 /*_________________Fonction de Menu______________*/
 void afficheMenu()
 {
         int choixMenu;
         int choixSMenu;
+        int chose;
         int ch;
         do
         {
@@ -20,8 +21,8 @@ void afficheMenu()
                 printf("5.  Mes statistiques\n");
                 printf("0.  Quitter l'application\n");
                 printf("\033[33m"
-                       "::::Veuillez saisie votre choix :"
-                       "\033[0m");
+                        "::::Veuillez saisie votre choix :"
+                        "\033[0m");
                 scanf("%d", &choixMenu);
                 switch (choixMenu)
                 {
@@ -36,8 +37,8 @@ void afficheMenu()
                                 printf("3.Consultation du profil\n");
                                 printf("0.Retour au menu principal\n");
                                 printf("\033[33m"
-                                       "::::Veuillez saisie votre choix :"
-                                       "\033[0m");
+                                        "::::Veuillez saisie votre choix :"
+                                        "\033[0m");
                                 scanf("%d", &choixSMenu);
                                 switch (choixSMenu)
                                 {
@@ -73,8 +74,8 @@ void afficheMenu()
                                 // printf("3.Verification automatique\n");
                                 printf("0.Retour au menu principal\n");
                                 printf("\033[33m"
-                                       "::::Veuillez saisie votre choix :"
-                                       "\033[0m");
+                                        "::::Veuillez saisie votre choix :"
+                                        "\033[0m");
                                 scanf("%d", &choixSMenu);
                                 switch (choixSMenu)
                                 {
@@ -110,8 +111,8 @@ void afficheMenu()
                                 printf("4.Details produit \n");
                                 printf("0.Retour au menu principal\n");
                                 printf("\033[33m"
-                                       "::::Veuillez saisie votre choix :"
-                                       "\033[0m");
+                                        "::::Veuillez saisie votre choix :"
+                                        "\033[0m");
                                 scanf("%d", &choixSMenu);
                                 switch (choixSMenu)
                                 {
@@ -121,15 +122,31 @@ void afficheMenu()
                                         break;
                                 case 2:
                                         printf("==RECHERCHE PRODUITS==\n");
+                                        printf("1.Recherche par Nom \n");
+                                        printf("2.Recherche par Categorie\n");
+                                        printf("3.Recherche par Prix \n");
+                                        printf("0.Revenu au menu Principale \n");
+                                        printf("Veuillez saisir la methode de Recherche: ");
+                                        scanf("%d",&chose);
+                                        switch(chose){
+                                                case 1 :rechNom(PRODUIT);
+                                                        break;
+                                                case 2: rechCatego(PRODUIT);
+                                                        break;
+                                                case 0: printf("Retourner au menu principal\n");
+                                                        break;
+                                                
+                                        }
                                         break;
                                 case 3:
                                         printf("==TRIE PRODUITS==\n");
                                         do
                                         {
                                                 printf("Veuillez saisie methose de Trie :\n");
-                                                printf("1.Alphabetique\n");
+                                                printf("1.Nom Produits\n");
                                                 printf("2.Prix croissante\n");
                                                 printf("3.Prix decroissante\n");
+                                                printf("4.Categorie\n");
                                                 printf("0.Return\n");
                                                 printf("Saisie votre choix :");
                                                 scanf("%d", &ch);
@@ -137,12 +154,15 @@ void afficheMenu()
                                                 {
                                                 case 1:
                                                         trieAlpaha(PRODUIT);
+                                                        afficheProduit(PRODUIT);
                                                         break;
                                                 case 2:
                                                         triCroi(PRODUIT);
                                                         break;
                                                 case 3:
                                                         triDEcroi(PRODUIT);
+                                                        break;
+                                                case 4:trieCatego(PRODUIT);
                                                         break;
                                                 case 0:
                                                         printf("Retourn Au menu principale!!\n");
@@ -207,15 +227,15 @@ void creeProfil(client CLIENTINFO[])
                 CLIENTINFO[nbrClient].sold = sold;
                 CLIENTINFO[nbrClient].idClient = 1;
                 printf("\033[35m"
-                       "==Profil Cree Avec Succes!\n"
-                       "\033[0m");
+                        "==Profil Cree Avec Succes!\n"
+                        "\033[0m");
                 nbrClient++;
         }
         else
         {
                 printf("\033[35m"
-                       "==Vous Avez daja un Profil!\n"
-                       "\033[0m");
+                        "==Vous Avez daja un Profil!\n"
+                        "\033[0m");
         }
 }
 /*_________modification de profil___________*/
@@ -240,8 +260,8 @@ void FonctModifiProfi(client CLIENTINFO[])
         sprintf(CLIENTINFO[nbrClient - 1].email, "%s.%s@email.com", prenom, nomClient);
         printf("Email de client est:%s\n", CLIENTINFO[nbrClient - 1].email);
         printf("\033[32m"
-               "___La modification fait Avec succes___\n"
-               "\033[0m");
+                "___La modification fait Avec succes___\n"
+                "\033[0m");
 }
 /*______________Affichage de profil______________*/
 void consultProfil(client CLIENTINFO[])
@@ -279,6 +299,7 @@ void afficheProduit(produit PRODUIT[])
         {
                 printf("ID Produit :%d\n", PRODUIT[i].idProduit);
                 printf("Nom Produit :%s\n", PRODUIT[i].nomProduit);
+                printf("Categorie :%s\n", PRODUIT[i].categorie);
                 printf("Prix Produit : %.2f\n", PRODUIT[i].prix);
                 printf("Stock :%d\n", PRODUIT[i].stock);
                 printf("__________________________________________\n");
@@ -293,7 +314,26 @@ void trieAlpaha(produit PRODUIT[])
         {
                 for (int j = 0; j < nbrProduits - i - 1; j++)
                 {
-                        if (strcmp(PRODUIT[j].nomProduit, PRODUIT[j + 1].nomProduit) > 0)
+                        if (strcasecmp(PRODUIT[j].nomProduit, PRODUIT[j + 1].nomProduit) > 0)
+                        {
+                                tmp = PRODUIT[j];
+                                PRODUIT[j] = PRODUIT[j + 1];
+                                PRODUIT[j + 1] = tmp;
+                        }
+                }
+        }
+
+}
+/*_____________trie par categorie_____________ */
+void trieCatego(produit PRODUIT[])
+{
+        produit tmp;
+        char categorie[30] ;
+        for (int i = 0; i < nbrProduits - 1; i++)
+        {
+                for (int j = 0; j < nbrProduits - i - 1; j++)
+                {
+                        if (strcasecmp(PRODUIT[j].categorie, PRODUIT[j + 1].categorie) > 0)
                         {
                                 tmp = PRODUIT[j];
                                 PRODUIT[j] = PRODUIT[j + 1];
@@ -303,8 +343,8 @@ void trieAlpaha(produit PRODUIT[])
         }
         afficheProduit(PRODUIT);
         printf("\033[32m"
-               "Produits tries par modele (alphabetique).\n"
-               "\033[0m");
+                "Produits tries par categorie (alphabetique).\n"
+                "\033[0m");
 }
 /*___________trie croissante ___________*/
 void triCroi(produit PRODUIT[])
@@ -325,8 +365,8 @@ void triCroi(produit PRODUIT[])
         }
         afficheProduit(PRODUIT);
         printf("\033[32m"
-               "PRIX des produits  ordre croissante\n"
-               "\033[0m");
+                "PRIX des produits  ordre croissante\n"
+                "\033[0m");
 }
 /*___________trie decroissante ___________*/
 void triDEcroi(produit PRODUIT[])
@@ -361,6 +401,7 @@ void RechId(produit PRODUIT[])
         }
         printf("Veuillez saisir l'Id de produits qui tu veux :");
         scanf("%d", &Idsearch);
+        printf("\n");
         for (int i = 0; i <= nbrProduits; i++)
         {
                 if (PRODUIT[i].idProduit == Idsearch)
@@ -375,11 +416,65 @@ void RechId(produit PRODUIT[])
                 }
         }
         printf("\033[32m"
-               "Search Done!!!!!"
-               "\033[0m");
+                "Search Done!!!!!"
+                "\033[0m");
 
         printf("\n");
 }
+/* ------------------ recherche par nom ------------------------ */
+void rechNom(produit PRODUIT[])
+{
+        char nomSearch[30];
+        trieAlpaha(PRODUIT); 
+        printf("Veuilez Saisir le nom du produit a chercher: ");
+        scanf(" %[^\n]", nomSearch);
+        printf("\n");
+
+
+        int start = 0, end = nbrProduits - 1, center;
+        while (start <= end)
+        {
+                center = (start + end) / 2; 
+                if (strcasecmp(nomSearch, PRODUIT[center].nomProduit) == 0)
+                {
+                printf("ID Produit :%d\n", PRODUIT[center].idProduit);
+                printf("Nom Produit :%s\n", PRODUIT[center].nomProduit);
+                printf("Categorie :%s\n", PRODUIT[center].categorie);
+                printf("Prix Produit : %.2f\n", PRODUIT[center].prix);
+                printf("Stock :%d\n", PRODUIT[center].stock);
+                break;
+                }
+                else if (strcasecmp(nomSearch, PRODUIT[center].nomProduit) > 0)
+                {
+                        start = center + 1;
+                }
+                else
+                {
+                        end = center - 1;
+                }
+        }
+        
+}
+/* ------------------ recherche par categorie ------------------------ */
+void rechCatego(produit PRODUIT[]){
+        int i = 0;
+        char categoSearch[30];
+
+        printf("\nVeuilez Saisir la categorie des produits a chercher: ");
+        scanf(" %[^\n]", categoSearch);
+        printf("\n");
+
+        do{
+                printf("ID Produit :%d\n", PRODUIT[i].idProduit);
+                printf("Nom Produit :%s\n", PRODUIT[i].nomProduit);
+                printf("Categorie :%s\n", PRODUIT[i].categorie);
+                printf("Prix Produit : %.2f\n", PRODUIT[i].prix);
+                printf("Stock :%d\n", PRODUIT[i].stock);
+                i++;
+                printf("`\n----------------------------------------\n");
+        }while(strcasecmp(categoSearch, PRODUIT[i].categorie)==0);
+}
+
 /*fonction procedure achat*/
 void achat(int id ,int i)
 {
