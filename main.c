@@ -1,9 +1,9 @@
-#include<stdio.h>
-#include<string.h>
-#include"header.h"
+#include <stdio.h>
+#include <string.h>
+#include "header.h"
 
-client CLIENTINFO={0};
-produit PRODUIT[MAX_PRODUIT]= {
+client CLIENTINFO[MAX_CLIENT];
+produit PRODUIT[MAX_PRODUIT] = {
     {1, "Gaming Keyboard", "Electronics", 89.99, 80, "Mechanical RGB keyboard with programmable keys"},
     {2, "Fitness Tracker", "Electronics", 49.99, 200, "Waterproof activity tracker with heart rate monitor"},
     {3, "Desk Organizer", "Office Supplies", 15.99, 150, "Multi-compartment desk organizer set"},
@@ -16,7 +16,8 @@ produit PRODUIT[MAX_PRODUIT]= {
     {10, "Tablet Stand", "Electronics", 12.99, 220, "Adjustable aluminum stand for tablets"},
 };
 
-int main (){
-afficheMenu();
-    return 0; 
+int main()
+{
+    afficheMenu();
+    return 0;
 }

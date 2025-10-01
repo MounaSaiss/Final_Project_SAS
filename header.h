@@ -3,6 +3,8 @@
 #ifndef HEADER_H
 #define HEADER_H
 #define MAX_PRODUIT 50 
+#define MAX_CLIENT 1
+
 
 
 
@@ -26,14 +28,21 @@ typedef struct{
 }produit;
 
 
-extern client CLIENTINFO;
+extern client CLIENTINFO[MAX_CLIENT];
 extern produit PRODUIT[MAX_PRODUIT];
 extern int nbrProduits;
 extern int nbrClient;
 
 /*Prototype des fonctions*/
 void afficheMenu();
-void creeProfil();
-void FonctModifiProfi();
+void creeProfil(client CLIENTINFO[]);
+void FonctModifiProfi(client CLIENTINFO[]);
+void consultProfil(client CLIENTINFO[]);
+void affichageMontant(client CLIENTINFO[]);
+void depotArgent(client CLIENTINFO[]);
+void afficheProduit(produit PRODUIT[]);
+void triDEcroi(produit PRODUIT[]);
+void triCroi(produit PRODUIT[]);
+void trieAlpaha(produit PRODUIT[]);
 
 #endif
