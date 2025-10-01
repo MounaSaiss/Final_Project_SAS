@@ -34,7 +34,6 @@ extern int nbrProduits;
 extern int nbrClient;
 
 /*Prototype des fonctions*/
-void afficheMenu();
 void creeProfil(client CLIENTINFO[]);
 void FonctModifiProfi(client CLIENTINFO[]);
 void consultProfil(client CLIENTINFO[]);
@@ -47,7 +46,7 @@ void trieAlpaha(produit PRODUIT[]);
 void trieCatego(produit PRODUIT[]);
 void RechId(produit PRODUIT[]);
 void rechNom(produit PRODUIT[]);
-void rechCatego(produit PRODUIT[]);
+// void rechCatego(produit PRODUIT[]);
 void achat(int id,int i);
 void fonAchat();
 
