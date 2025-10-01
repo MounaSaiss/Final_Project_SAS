@@ -44,5 +44,8 @@ void afficheProduit(produit PRODUIT[]);
 void triDEcroi(produit PRODUIT[]);
 void triCroi(produit PRODUIT[]);
 void trieAlpaha(produit PRODUIT[]);
+void RechId(produit PRODUIT[]);
+void achat(int id,int i);
+void fonAchat();
 
 #endif
