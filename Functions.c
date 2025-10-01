@@ -131,8 +131,8 @@ void afficheMenu()
                                         switch(chose){
                                                 case 1 :rechNom(PRODUIT);
                                                         break;
-                                                case 2: rechCatego(PRODUIT);
-                                                        break;
+                                                /*case 2: rechCatego(PRODUIT);
+                                                        break;*/
                                                 case 0: printf("Retourner au menu principal\n");
                                                         break;
                                                 
@@ -270,13 +270,14 @@ void consultProfil(client CLIENTINFO[])
         {
                 printf("==Aucun Profil a Afficher==\n");
                 return;
+        }
         printf("Id  :%d\n", CLIENTINFO[nbrClient - 1].idClient);
         printf("Nom  : %s\n", CLIENTINFO[nbrClient - 1].nomClient);
         printf("Prenom : %s\n", CLIENTINFO[nbrClient - 1].prenom);
         printf("Email  : %s\n", CLIENTINFO[nbrClient - 1].email);
         printf("Solde  : %.2f\n", CLIENTINFO[nbrClient - 1].sold);
         printf("____________________________________________________\n");
-}
+
 }
 /*_____Gestion de solde _____*/
 void affichageMontant(client CLIENTINFO[])
@@ -424,6 +425,7 @@ void RechId(produit PRODUIT[])
 /* ------------------ recherche par nom ------------------------ */
 void rechNom(produit PRODUIT[])
 {
+        int estTrouver = 0;
         char nomSearch[30];
         trieAlpaha(PRODUIT); 
         printf("Veuilez Saisir le nom du produit a chercher: ");
@@ -442,6 +444,8 @@ void rechNom(produit PRODUIT[])
                 printf("Categorie :%s\n", PRODUIT[center].categorie);
                 printf("Prix Produit : %.2f\n", PRODUIT[center].prix);
                 printf("Stock :%d\n", PRODUIT[center].stock);
+                estTrouver ++;
+
                 break;
                 }
                 else if (strcasecmp(nomSearch, PRODUIT[center].nomProduit) > 0)
@@ -453,10 +457,13 @@ void rechNom(produit PRODUIT[])
                         end = center - 1;
                 }
         }
-        
+        if(estTrouver == 0)
+                printf("Aucun Produits est trouvee\n");
 }
 /* ------------------ recherche par categorie ------------------------ */
+/*
 void rechCatego(produit PRODUIT[]){
+        int estTrouve = 0;
         int i = 0;
         char categoSearch[30];
 
@@ -470,11 +477,14 @@ void rechCatego(produit PRODUIT[]){
                 printf("Categorie :%s\n", PRODUIT[i].categorie);
                 printf("Prix Produit : %.2f\n", PRODUIT[i].prix);
                 printf("Stock :%d\n", PRODUIT[i].stock);
+                estTrouve ++;
                 i++;
-                printf("`\n----------------------------------------\n");
+                printf("\n----------------------------------------\n");
         }while(strcasecmp(categoSearch, PRODUIT[i].categorie)==0);
+        if(estTrouve == 0)
+                printf("Aucun produits est trouve\n");
 }
-
+*/
 /*fonction procedure achat*/
 void achat(int id ,int i)
 {
